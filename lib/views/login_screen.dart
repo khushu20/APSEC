@@ -1,7 +1,7 @@
 import 'package:ap_sec/res/app_alerts/custom_error_alert.dart';
-import 'package:ap_sec/res/app_alerts/validation_ios_alert.dart';
 import 'package:ap_sec/res/colors.dart';
 import 'package:ap_sec/res/text_constants.dart';
+import 'package:ap_sec/routes/app_routes.dart';
 import 'package:ap_sec/utils/internet_check.dart';
 import 'package:flutter/material.dart';
 
@@ -217,6 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         if (userValidations(context)) if (await InternetCheck()
                             .hasInternetConnection()) {
+                              Navigator.pushReplacementNamed(context, AppRoutes.officerdashboard);
                          /*  loginViewmodel.officerLoginMobileService(
                               context,
                               _userNameController.text.toString().trim(),
@@ -260,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool userValidations(BuildContext context) {
-    if (_userNameController.text.toString().isEmpty) {
+    /* if (_userNameController.text.toString().isEmpty) {
       if (_userNameController.text.isEmpty) {
         ValidationIoSAlert().showAlert(context, TextConstants.plz_enter_uname);
 
@@ -270,7 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         return false;
       }
-    }
+    } */
     return true;
   }
 }
