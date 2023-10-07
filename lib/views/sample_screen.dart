@@ -281,8 +281,8 @@ class _SampleScreenState extends State<SampleScreen> {
                                 bottom: 2.5,
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.pushReplacementNamed(
-                                        context, AppRoutes.officerdashboard);
+                                 Navigator.pushReplacementNamed(
+                                        context, AppRoutes.downloadVoterSlip);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -350,7 +350,7 @@ class _SampleScreenState extends State<SampleScreen> {
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.pushReplacementNamed(
-                                        context, AppRoutes.officerdashboard);
+                                        context, AppRoutes.downloadVoterSlip);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

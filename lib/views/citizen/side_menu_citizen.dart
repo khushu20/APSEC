@@ -30,20 +30,25 @@ class _SideMenuCitizenState extends State<SideMenuCitizen> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColors.appThemeColor,
+                    gradient:  AppColors.reusableGradient,
                   ),
                   child: Center(
                     child: Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 48, // Image radius
-                            child: ClipOval(
-                              child: Image.asset(ImageConstants.apecLogo),
-                            ),
-                          ),
+                          child:  CircleAvatar(
+                  backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                  radius: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Image.asset(
+                      ImageConstants.appIcon,
+                      height: 80,
+                      width: 80,
+                    ),
+                  ),
+                ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),

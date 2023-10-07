@@ -1,3 +1,4 @@
+import 'package:ap_sec/res/components/custom_appbar.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:ap_sec/view_model/citizen/voter_slip_details_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -33,13 +34,12 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
           return Future.value(false);
         },
         child: Scaffold(
-          backgroundColor: AppColors.appThemeColor,
+          
+          backgroundColor: Color.fromARGB(221, 200, 204, 232),
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
+          appBar: GradientAppBar(
             automaticallyImplyLeading: true,
-            backgroundColor: AppColors.appbarcolor,
-            title: Text("app_name".tr()),
-            centerTitle: true,
+            title:"app_name".tr(),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -61,7 +61,7 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
                                     backgroundColor: Colors.transparent,
                                     radius: 50,
                                     child: Image.network(
-                                      "https://upload.wikimedia.org/wikipedia/en/9/92/Telangana_State_Election_Commission_Logo.png",
+                                      voterSlipResponse.appLogo ?? "",
                                       height: 90,
                                       width: 90,
                                       errorBuilder:
@@ -188,7 +188,9 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
             ),
           ),
           bottomNavigationBar: Container(
-            color: AppColors.appbarcolor,
+          decoration: BoxDecoration(
+              gradient: AppColors.sampleGradient,
+            ) ,
             child: Image.asset(
               ImageConstants.footerwhite,
               width: double.infinity,

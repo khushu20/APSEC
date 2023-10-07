@@ -25,7 +25,7 @@ class VoterSlipRepository {
           "Note:- This voter slip will not be considered an identification document. Please carry EPIC card or anyone of 18 photo identification documents declared to cast your vote",
       "note_te":
           "గమనిక:- ఈ ఓటరు స్లిప్పు ఓటరు గుర్తింపు పత్రముగా పరిగణింపబడదు. ఎపిక్ కార్డుగాని, లేదా ప్రకటించిన 18 పోటో గుర్తింపు పత్రాలలో ఒక దానిని తప్పక పోలింగ్ స్టేషన్ కు తీసుకొని పోవలను.",
-      "app_logo": "Telangana logo complete path",
+      "app_logo": "https://upload.wikimedia.org/wikipedia/en/9/92/Telangana_State_Election_Commission_Logo.png",
       "Voter_Data": [
         {
           "id": "1",

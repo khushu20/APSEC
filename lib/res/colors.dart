@@ -25,9 +25,9 @@ class AppColors {
         static const Color purple = const Color(0xFFA355A2);
       
    static const LinearGradient reusableGradient = LinearGradient(
-  colors: [ AppColors.start, AppColors.middle, AppColors.end],
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
+  colors: [  const Color.fromARGB(255, 41, 81, 202), AppColors.middle, AppColors.end],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
 );
 
 static const LinearGradient sampleGradient = LinearGradient(

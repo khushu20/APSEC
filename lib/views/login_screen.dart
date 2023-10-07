@@ -120,7 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               onPressed: () async {
                                                 if (userValidations(context)) if (await InternetCheck()
                                                     .hasInternetConnection()) {
-                                                 
+                                                  Navigator.pushReplacementNamed(
+                                                      context,
+                                                      AppRoutes
+                                                          .downloadVoterSlip);
                                                 } else {
                                                   showDialog(
                                                     barrierDismissible: false,
@@ -143,107 +146,130 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ],
                                     ),
-                                    Column(children: [
-                                                        Padding(
-                  padding: const EdgeInsets.only(
-                      top: 30.0, left: 8.0, right: 8.0, bottom: 8.0),
-                  child: TextField(
-                    controller: _userNameController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person),
-                      labelText: TextConstants.userId,
-                      hintText: TextConstants.userId,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.ash),
-                      ),
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextField(
-                    obscureText: _obscurePassword,
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      prefixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obscurePassword =
-                                !_obscurePassword; // Toggle the visibility of the password.
-                          });
-                        },
-                        child: Icon(
-                          _obscurePassword ? Icons.lock : Icons.lock_open,
-                        ),
-                      ),
-                      labelText: TextConstants.password,
-                      hintText: TextConstants.password,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.ash),
-                      ),
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: ElevatedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Text(
-                          TextConstants.login,
-                          style:
-                              TextStyle(fontSize: 18, color: AppColors.white),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        backgroundColor:   AppColors.appThemeColor,
-                        textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontStyle: FontStyle.normal),
-                      ),
-                      onPressed: () async {
-                        if (userValidations(context)) if (await InternetCheck()
-                            .hasInternetConnection()) {
-                              Navigator.pushReplacementNamed(context, AppRoutes.officerdashboard);
-                         /*  loginViewmodel.officerLoginMobileService(
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 30.0,
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 8.0),
+                                          child: TextField(
+                                            controller: _userNameController,
+                                            decoration: InputDecoration(
+                                              prefixIcon: Icon(Icons.person),
+                                              labelText: TextConstants.userId,
+                                              hintText: TextConstants.userId,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: AppColors.ash),
+                                              ),
+                                              labelStyle: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: TextField(
+                                            obscureText: _obscurePassword,
+                                            controller: _passwordController,
+                                            decoration: InputDecoration(
+                                              prefixIcon: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _obscurePassword =
+                                                        !_obscurePassword; // Toggle the visibility of the password.
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  _obscurePassword
+                                                      ? Icons.lock
+                                                      : Icons.lock_open,
+                                                ),
+                                              ),
+                                              labelText: TextConstants.password,
+                                              hintText: TextConstants.password,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: AppColors.ash),
+                                              ),
+                                              labelStyle: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 20),
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            child: ElevatedButton(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 15),
+                                                child: Text(
+                                                  TextConstants.login,
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: AppColors.white),
+                                                ),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0)),
+                                                backgroundColor:
+                                                    AppColors.appThemeColor,
+                                                textStyle: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontStyle:
+                                                        FontStyle.normal),
+                                              ),
+                                              onPressed: () async {
+                                                if (userValidations(context)) if (await InternetCheck()
+                                                    .hasInternetConnection()) {
+                                                  Navigator.pushReplacementNamed(
+                                                      context,
+                                                      AppRoutes
+                                                          .officerdashboard);
+                                                  /*  loginViewmodel.officerLoginMobileService(
                               context,
                               _userNameController.text.toString().trim(),
                               _passwordController.text.toString().trim()); */
-                        } else {
-                          showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (context) {
-                              return CustomErrorAlert(
-                                descriptions: TextConstants.plz_check_internet,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                                    ],)
-                    
-               
-               
+                                                } else {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return CustomErrorAlert(
+                                                        descriptions: TextConstants
+                                                            .plz_check_internet,
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
