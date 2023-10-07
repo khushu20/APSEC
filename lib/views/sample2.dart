@@ -2,6 +2,7 @@ import 'package:ap_sec/res/colors.dart';
 import 'package:ap_sec/res/text_constants.dart';
 import 'package:ap_sec/views/sample_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 
 class SampleLoginScreen extends StatefulWidget {
   const SampleLoginScreen({super.key});
@@ -20,28 +21,19 @@ class _SampleLoginScreenState extends State<SampleLoginScreen> {
     return Stack(
       children: [
         SampleScreen(),
-       
-        
-      
         Scaffold(
           backgroundColor: Colors.transparent,
           body: Stack(
-          
             children: [
-          
               Container(
-               
                 height: MediaQuery.of(context).size.height * 0.4,
-          
                 margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08 ,
+                  horizontal: MediaQuery.of(context).size.width * 0.08,
                   vertical: MediaQuery.of(context).size.height * 0.35,
-                    ),
+                ),
                 child: Stack(
-                  
                   children: [
                     Container(
-                     
                       height: MediaQuery.of(context).size.height * 0.35,
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: Column(
@@ -77,16 +69,19 @@ class _SampleLoginScreenState extends State<SampleLoginScreen> {
                       ),
                     ),
                     Positioned(
-                    
                       right: MediaQuery.of(context).size.width * 0.35,
-                      bottom: MediaQuery.of(context).size.height /70,
+                      bottom: MediaQuery.of(context).size.height / 70,
                       child: Container(
                         height: 40,
                         width: 100,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 18),),
+                            child: Text(
+                              "Login",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
                           ),
                         ),
                         color: Colors.amber,

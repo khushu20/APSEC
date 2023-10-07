@@ -50,13 +50,18 @@ class _SampleScreenState extends State<SampleScreen> {
                         color: Colors.blue),
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width * 0.47,
-                    child: Text(
-                      "CITIZEN",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                    child: GestureDetector(
+                      onTap: () {
+                        print("am being tapped");
+                      },
+                      child: Text(
+                        "CITIZEN",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ))
                 : Container(
                     decoration: BoxDecoration(
@@ -67,9 +72,9 @@ class _SampleScreenState extends State<SampleScreen> {
                         color: Colors.white),
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width * 0.47,
-                    child:GestureDetector(
-                      onTap: (){
-                        
+                    child: GestureDetector(
+                      onTap: () {
+                        print("am being tapped");
                       },
                       child: Text(
                         "CITIZEN",
@@ -104,13 +109,18 @@ class _SampleScreenState extends State<SampleScreen> {
               width: MediaQuery.of(context).size.width * 0.47,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "OFFICER",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                child: GestureDetector(
+                  onTap: () {
+                    print("am being tapped");
+                  },
+                  child: Text(
+                    "OFFICER",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
                 ),
               ),
             ),
