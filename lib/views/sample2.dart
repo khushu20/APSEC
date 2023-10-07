@@ -2,7 +2,6 @@ import 'package:ap_sec/res/colors.dart';
 import 'package:ap_sec/res/text_constants.dart';
 import 'package:ap_sec/views/sample_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 
 class SampleLoginScreen extends StatefulWidget {
   const SampleLoginScreen({super.key});

@@ -7,5 +7,8 @@ class ImageConstants {
   static const dashboard = "assets/dashboard.png";
   static const footerblack = "assets/footer.png";
   static const footerwhite = "assets/footercopy.png";
-    static const profile = "assets/profile.png";
+  static const profile = "assets/profile.png";
+  static const apecLogo = "assets/apsec_logo.png";
+  static const crossIcon = "assets/crossIcon.png";
+  static const downloadIcon = "assets/download_arrow.png";
 }
