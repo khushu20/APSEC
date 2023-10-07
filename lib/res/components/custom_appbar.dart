@@ -16,9 +16,11 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: BoxDecoration(gradient: AppColors.reusableGradient),
       child: AppBar(
         iconTheme: IconThemeData(color: AppColors.white),
-        title: Text(
-          title,
-          style: TextStyle(color: AppColors.white,fontSize: 18),
+        title: Center(
+          child: Text(
+            title,
+            style: TextStyle(color: AppColors.white,fontSize: 18),
+          ),
         ),
         backgroundColor: Colors.transparent, // Make the AppBar transparent
         elevation: 0,
