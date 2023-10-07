@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           height: 160,
                           width: 160,
                         ),
-                        nextScreen: SampleLoginScreen(),
+                        nextScreen: SampleScreen(),
                         splashTransition: SplashTransition.rotationTransition,
                         backgroundColor: AppColors.btngreen,
                       ),
