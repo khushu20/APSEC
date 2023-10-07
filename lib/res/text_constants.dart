@@ -23,6 +23,7 @@ class TextConstants {
   static const exitAppMenu = "Exit";
   static const logout = "Log Out";
   static const dashboard = "Dashboard";
+   static const submit = "Submit";
  
  
 

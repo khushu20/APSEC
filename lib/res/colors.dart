@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color appThemeColor = const Color(0xFF08426b);
+  static const Color appThemeColor = const Color(0xFF1950A3);
+  static const Color start = const Color(0xFF31488B);
+  static const Color middle = const Color(0xFF223662);
+   static const Color end = const Color(0xFF09101E);
+  
   static const Color white = const Color(0xFFFFFFFF);
   static const Color footerColor = const Color(0xFF1981E0);
   static const Color black = Color.fromARGB(255, 11, 11, 12);
@@ -13,19 +17,21 @@ class AppColors {
   static const Color ash = const Color(0xFF51696B);
     static const Color appbarcolor = const Color(0xFF00BCAA);
   static const Color bgcolor = const Color(0xFF0c8069);
-  static const Color buttoncolor = const Color(0xFF51696B);
+  static const Color buttoncolor = const Color(0xFF4358AC);
  // static const Color btngreen = const Color(0xFF629b58);
  static const Color btngreen = const Color(0xFF51696B);
     static const Color btnpink = const Color(0xFFb73766);
       static const Color btnblue = const Color(0xFF1b6aaa);
+        static const Color purple = const Color(0xFFA355A2);
+      
    static const LinearGradient reusableGradient = LinearGradient(
-  colors: [ Color(0xFF0c8069), Color(0xFF03979A)],
+  colors: [ AppColors.start, AppColors.middle, AppColors.end],
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
 );
 
 static const LinearGradient sampleGradient = LinearGradient(
-  colors: [ Color.fromARGB(255, 182, 160, 223), Color.fromARGB(182, 2, 4, 37)],
+  colors: [ AppColors.end,AppColors.start],
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
 );
