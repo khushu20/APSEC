@@ -1,4 +1,5 @@
 import 'package:ap_sec/res/components/custom_appbar.dart';
+import 'package:ap_sec/res/components/loader.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:ap_sec/view_model/citizen/voter_slip_details_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,190 +31,199 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
           Navigator.pushReplacementNamed(context, AppRoutes.downloadVoterSlip);
           return Future.value(false);
         },
-        child: Scaffold(
-          backgroundColor: Color.fromARGB(221, 200, 204, 232),
-          resizeToAvoidBottomInset: false,
-          appBar: GradientAppBar(
-            automaticallyImplyLeading: true,
-            title: "app_name".tr(),
-            actions: [
-              GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(
-                    Icons.home,
-                    color: Colors.white,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.downloadVoterSlip);
-                },
-              ),
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Screenshot(
-                  controller: screenshotController,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 2.0),
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    radius: 50,
-                                    child: Image.network(
-                                      voterSlipResponse.appLogo ?? "",
-                                      height: 90,
-                                      width: 90,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Image.asset(
-                                          ImageConstants.exit,
-                                          height: 150.0,
-                                          width: 100.0,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Text(
-                                        (context.locale.languageCode == "en")
-                                            ? (voterSlipResponse
-                                                    .electionTypeTitleEn ??
-                                                "")
-                                            : (voterSlipResponse
-                                                    .electionTypeTitleTe ??
-                                                ""),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Center(
-                                    child: Text("voter_slip".tr()),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.blue.shade100,
-                                    Colors.blue.shade200,
-                                    Colors.blue.shade100,
-                                  ],
-                                ),
-                                border: Border.all(
-                                  color: Colors.grey, // Border color
-                                  width: 1.0, // Border width
-                                ),
-                                borderRadius: BorderRadius.circular(4.0),
-                              ), // Border radius
-                              child: Column(
-                                children: [
-                                  ...(voterSlipResponse.voterData)!.map((e) {
-                                    return Column(
-                                      children: [
-                                        RowComponent(
-                                          data: (context.locale.languageCode ==
-                                                  "en")
-                                              ? e.labelNameEn
-                                              : e.labelNameTe,
-                                          value: (context.locale.languageCode ==
-                                                  "en")
-                                              ? e.valueEn
-                                              : e.valueTe,
-                                        ),
-                                      ],
-                                    );
-                                  }).toList(),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                (context.locale.languageCode == "en")
-                                    ? voterSlipResponse.noteEn ?? ""
-                                    : voterSlipResponse.noteTe ?? "",
-                              ),
-                            ),
-                          ),
-                        ],
+        child: Stack(
+          children: [
+            Scaffold(
+              backgroundColor: Color.fromARGB(221, 200, 204, 232),
+              resizeToAvoidBottomInset: false,
+              appBar: GradientAppBar(
+                automaticallyImplyLeading: true,
+                title: "app_name".tr(),
+                actions: [
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.home,
+                        color: Colors.white,
                       ),
                     ),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context, AppRoutes.downloadVoterSlip);
+                    },
                   ),
-                ),
-                GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 10.0,
-                      right: 8.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Image.asset(
-                          ImageConstants.downloadIcon,
-                          height: 25,
-                          width: 40,
+                ],
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Screenshot(
+                      controller: screenshotController,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 2.0),
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        radius: 50,
+                                        child: Image.network(
+                                          voterSlipResponse.appLogo ?? "",
+                                          height: 90,
+                                          width: 90,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                              ImageConstants.exit,
+                                              height: 150.0,
+                                              width: 100.0,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Text(
+                                            (context.locale.languageCode ==
+                                                    "en")
+                                                ? (voterSlipResponse
+                                                        .electionTypeTitleEn ??
+                                                    "")
+                                                : (voterSlipResponse
+                                                        .electionTypeTitleTe ??
+                                                    ""),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text("voter_slip".tr()),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.blue.shade100,
+                                        Colors.blue.shade200,
+                                        Colors.blue.shade100,
+                                      ],
+                                    ),
+                                    border: Border.all(
+                                      color: Colors.grey, // Border color
+                                      width: 1.0, // Border width
+                                    ),
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ), // Border radius
+                                  child: Column(
+                                    children: [
+                                      ...(voterSlipResponse.voterData)!
+                                          .map((e) {
+                                        return Column(
+                                          children: [
+                                            RowComponent(
+                                              data: (context.locale
+                                                          .languageCode ==
+                                                      "en")
+                                                  ? e.labelNameEn
+                                                  : e.labelNameTe,
+                                              value: (context.locale
+                                                          .languageCode ==
+                                                      "en")
+                                                  ? e.valueEn
+                                                  : e.valueTe,
+                                            ),
+                                          ],
+                                        );
+                                      }).toList(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    (context.locale.languageCode == "en")
+                                        ? voterSlipResponse.noteEn ?? ""
+                                        : voterSlipResponse.noteTe ?? "",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  onTap: () async {
-                    voterSlipProvider.saveScreenshot(
-                        voterSlipResponse.voterData
-                                ?.firstWhere(
-                                    (element) => element.labelNameEn == "Name")
-                                .valueEn ??
-                            "VoterSlip",
-                        screenshotController,
-                        context);
-                  },
-                )
-              ],
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 10.0,
+                          right: 8.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Image.asset(
+                              ImageConstants.downloadIcon,
+                              height: 25,
+                              width: 40,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () async {
+                        voterSlipProvider.saveScreenshot(
+                            voterSlipResponse.voterData
+                                    ?.firstWhere((element) =>
+                                        element.labelNameEn == "Name")
+                                    .valueEn ??
+                                "VoterSlip",
+                            screenshotController,
+                            context);
+                      },
+                    )
+                  ],
+                ),
+              ),
+              bottomNavigationBar: Container(
+                decoration: BoxDecoration(
+                  gradient: AppColors.sampleGradient,
+                ),
+                child: Image.asset(
+                  ImageConstants.footerwhite,
+                  width: double.infinity,
+                  height: 40,
+                ),
+              ),
             ),
-          ),
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              gradient: AppColors.sampleGradient,
-            ),
-            child: Image.asset(
-              ImageConstants.footerwhite,
-              width: double.infinity,
-              height: 40,
-            ),
-          ),
+            if (voterSlipProvider.getIsLoadingStatus) LoaderComponent()
+          ],
         ),
       ),
     );
