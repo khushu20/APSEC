@@ -13,6 +13,13 @@ import '../../routes/app_routes.dart';
 import 'package:open_file/open_file.dart';
 
 class VoterSlipItemsListViewModel with ChangeNotifier {
+  bool isLoading = false;
+  get getIsLoadingStatus => isLoading;
+  setIsLoadingStatus(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
+
   void saveScreenshot(String screenshotName,
       ScreenshotController screenshotController, BuildContext context) async {
     if (Platform.isAndroid) {
@@ -23,6 +30,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
           ? await Permission.storage.request()
           : PermissionStatus.granted;
       if (status.isGranted) {
+        setIsLoadingStatus(true);
         Uint8List? image = await screenshotController.capture();
         if (image != null) {
           final result = await ImageGallerySaver.saveImage(image,
@@ -34,6 +42,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
             String directory = savedFile.parent.path;
             String originalFilePath =
                 '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
+
             showCupertinoDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -55,6 +64,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
                       CupertinoDialogAction(
                         isDefaultAction: true,
                         onPressed: () {
+                          setIsLoadingStatus(false);
                           Navigator.of(context).pop(); // Close the dialog
                           OpenFile.open(Uri.parse(originalFilePath).path);
                         },
@@ -64,12 +74,14 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
                   );
                 });
           } else {
+            setIsLoadingStatus(false);
             ShowToasts.showToast(result['errorMessage']);
           }
         }
       } else {
         PermissionStatus status = await Permission.storage.request();
         if (status.isGranted) {
+          setIsLoadingStatus(true);
           Uint8List? image = await screenshotController.capture();
           if (image != null) {
             final result = await ImageGallerySaver.saveImage(image,
@@ -83,8 +95,38 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
                   '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
               ShowToasts.showToast(
                   "img_saved_successfully".tr() + "${originalFilePath}");
-              OpenFile.open(Uri.parse(originalFilePath).path);
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CupertinoAlertDialog(
+                      title: Row(
+                        children: [
+                          ImageIcon(
+                            AssetImage(ImageConstants
+                                .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                          ),
+                          SizedBox(width: 10),
+                          Text("app_name".tr()),
+                        ],
+                      ),
+                      content: Text("img_saved_successfully".tr() +
+                          " to\n" +
+                          "${originalFilePath}"),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          onPressed: () {
+                            setIsLoadingStatus(false);
+                            Navigator.of(context).pop(); // Close the dialog
+                            OpenFile.open(Uri.parse(originalFilePath).path);
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  });
             } else {
+              setIsLoadingStatus(false);
               ShowToasts.showToast(result['errorMessage']);
             }
           }
@@ -130,8 +172,38 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
           if (result['isSuccess']) {
             ShowToasts.showToast("img_saved_successfully".tr() +
                 "${screenshotName.replaceAll(" ", "").toString()}.jpg");
-            OpenFile.open(Uri.parse(result['filePath']).path);
+            showCupertinoDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CupertinoAlertDialog(
+                    title: Row(
+                      children: [
+                        ImageIcon(
+                          AssetImage(ImageConstants
+                              .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                        ),
+                        SizedBox(width: 10),
+                        Text("app_name".tr()),
+                      ],
+                    ),
+                    content: Text("img_saved_successfully".tr() +
+                        " to\n" +
+                        "${result['filePath']}"),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () {
+                          setIsLoadingStatus(false);
+                          Navigator.of(context).pop(); // Close the dialog
+                          OpenFile.open(Uri.parse(result['filePath']).path);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                });
           } else {
+            setIsLoadingStatus(false);
             ShowToasts.showToast(result['errorMessage']);
           }
         }
@@ -146,8 +218,38 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
             if (result['isSuccess']) {
               ShowToasts.showToast("img_saved_successfully".tr() +
                   "${screenshotName.replaceAll(" ", "").toString()}.jpg");
-              OpenFile.open(Uri.parse(result['filePath']).path);
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CupertinoAlertDialog(
+                      title: Row(
+                        children: [
+                          ImageIcon(
+                            AssetImage(ImageConstants
+                                .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                          ),
+                          SizedBox(width: 10),
+                          Text("app_name".tr()),
+                        ],
+                      ),
+                      content: Text("img_saved_successfully".tr() +
+                          " to\n" +
+                          "${result['filePath']}"),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          onPressed: () {
+                            setIsLoadingStatus(false);
+                            Navigator.of(context).pop(); // Close the dialog
+                            OpenFile.open(Uri.parse(result['filePath']).path);
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  });
             } else {
+              setIsLoadingStatus(false);
               ShowToasts.showToast(result['errorMessage']);
             }
           }
@@ -199,8 +301,38 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
         if (result['isSuccess']) {
           ShowToasts.showToast("img_saved_successfully".tr() +
               "${screenshotName.replaceAll(" ", "").toString()}.jpg");
-          OpenFile.open(Uri.parse(result['filePath']).path);
+          showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CupertinoAlertDialog(
+                  title: Row(
+                    children: [
+                      ImageIcon(
+                        AssetImage(ImageConstants
+                            .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                      ),
+                      SizedBox(width: 10),
+                      Text("app_name".tr()),
+                    ],
+                  ),
+                  content: Text("img_saved_successfully".tr() +
+                      " to\n" +
+                      "${result['filePath']}"),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      onPressed: () {
+                        setIsLoadingStatus(false);
+                        Navigator.of(context).pop(); // Close the dialog
+                        OpenFile.open(Uri.parse(result['filePath']).path);
+                      },
+                      child: Text('OK'),
+                    ),
+                  ],
+                );
+              });
         } else {
+          setIsLoadingStatus(false);
           ShowToasts.showToast(result['errorMessage']);
         }
       }
