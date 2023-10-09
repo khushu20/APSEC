@@ -1,8 +1,7 @@
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../res/colors.dart';
-
+import '../res/components/custom_appbar.dart';
 
 class AppInfo extends StatefulWidget {
   const AppInfo({super.key});
@@ -16,15 +15,27 @@ class _AppInfoState extends State<AppInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+      appBar: GradientAppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: AppColors.appbarcolor,
-        title: Text("app_name".tr()),
-        centerTitle: true,
+        title: "app_name".tr(),
+        actions: [
+          Icon(
+            Icons.logout,
+            color: Colors.transparent,
+          ),
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: AppColors.appThemeColor,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.blue.shade50,
+              Colors.blue.shade100,
+              Colors.blue.shade50,
+            ],
+          ),
         ),
         child: Column(
           children: [

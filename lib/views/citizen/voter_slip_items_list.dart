@@ -14,8 +14,7 @@ class VoterSlipItemsList extends StatefulWidget {
   const VoterSlipItemsList({super.key});
 
   @override
-  State<VoterSlipItemsList> createState() =>
-      _VoterSlipItemsListState();
+  State<VoterSlipItemsList> createState() => _VoterSlipItemsListState();
 }
 
 class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
@@ -24,22 +23,34 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
   Widget build(BuildContext context) {
     final voterSlipResponse =
         ModalRoute.of(context)?.settings.arguments as VoterResponse;
-    final voterSlipProvider =
-        Provider.of<VoterSlipItemsListViewModel>(context);
+    final voterSlipProvider = Provider.of<VoterSlipItemsListViewModel>(context);
     return SafeArea(
       child: WillPopScope(
         onWillPop: () {
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.downloadVoterSlip);
+          Navigator.pushReplacementNamed(context, AppRoutes.downloadVoterSlip);
           return Future.value(false);
         },
         child: Scaffold(
-          
           backgroundColor: Color.fromARGB(221, 200, 204, 232),
           resizeToAvoidBottomInset: false,
           appBar: GradientAppBar(
             automaticallyImplyLeading: true,
-            title:"app_name".tr(),
+            title: "app_name".tr(),
+            actions: [
+              GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, AppRoutes.downloadVoterSlip);
+                },
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -181,16 +192,22 @@ class _VoterSlipItemsListState extends State<VoterSlipItemsList> {
                   ),
                   onTap: () async {
                     voterSlipProvider.saveScreenshot(
-                        "voterSlip", screenshotController, context);
+                        voterSlipResponse.voterData
+                                ?.firstWhere(
+                                    (element) => element.labelNameEn == "Name")
+                                .valueEn ??
+                            "VoterSlip",
+                        screenshotController,
+                        context);
                   },
                 )
               ],
             ),
           ),
           bottomNavigationBar: Container(
-          decoration: BoxDecoration(
+            decoration: BoxDecoration(
               gradient: AppColors.sampleGradient,
-            ) ,
+            ),
             child: Image.asset(
               ImageConstants.footerwhite,
               width: double.infinity,

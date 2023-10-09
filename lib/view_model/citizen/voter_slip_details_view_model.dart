@@ -3,13 +3,14 @@ import 'package:ap_sec/res/components/toast.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
-
 import '../../routes/app_routes.dart';
+import 'package:open_file/open_file.dart';
 
 class VoterSlipItemsListViewModel with ChangeNotifier {
   void saveScreenshot(String screenshotName,
@@ -33,8 +34,35 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
             String directory = savedFile.parent.path;
             String originalFilePath =
                 '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
-            ShowToasts.showToast(
-                "img_saved_successfully".tr() + "${originalFilePath}");
+            showCupertinoDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CupertinoAlertDialog(
+                    title: Row(
+                      children: [
+                        ImageIcon(
+                          AssetImage(ImageConstants
+                              .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                        ),
+                        SizedBox(width: 10),
+                        Text("app_name".tr()),
+                      ],
+                    ),
+                    content: Text("img_saved_successfully".tr() +
+                        " to\n" +
+                        "${originalFilePath}"),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          OpenFile.open(Uri.parse(originalFilePath).path);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                });
           } else {
             ShowToasts.showToast(result['errorMessage']);
           }
@@ -55,6 +83,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
                   '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
               ShowToasts.showToast(
                   "img_saved_successfully".tr() + "${originalFilePath}");
+              OpenFile.open(Uri.parse(originalFilePath).path);
             } else {
               ShowToasts.showToast(result['errorMessage']);
             }
@@ -91,7 +120,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
         }
       }
     } else if (Platform.isIOS) {
-      PermissionStatus status = await Permission.photosAddOnly.request();
+      PermissionStatus status = await Permission.photos.request();
       if (status.isGranted) {
         Uint8List? image = await screenshotController.capture();
         if (image != null) {
@@ -101,12 +130,13 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
           if (result['isSuccess']) {
             ShowToasts.showToast("img_saved_successfully".tr() +
                 "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+            OpenFile.open(Uri.parse(result['filePath']).path);
           } else {
             ShowToasts.showToast(result['errorMessage']);
           }
         }
       } else {
-        PermissionStatus status = await Permission.photosAddOnly.request();
+        PermissionStatus status = await Permission.photos.request();
         if (status.isGranted) {
           Uint8List? image = await screenshotController.capture();
           if (image != null) {
@@ -116,6 +146,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
             if (result['isSuccess']) {
               ShowToasts.showToast("img_saved_successfully".tr() +
                   "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+              OpenFile.open(Uri.parse(result['filePath']).path);
             } else {
               ShowToasts.showToast(result['errorMessage']);
             }
@@ -144,7 +175,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
                         onPressed: () async {
                           await openAppSettings().then((value) async {
                             PermissionStatus status =
-                                await Permission.photosAddOnly.request();
+                                await Permission.photos.request();
                             if (status.isGranted) {
                               Navigator.pop(context);
                             } else {
@@ -168,6 +199,7 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
         if (result['isSuccess']) {
           ShowToasts.showToast("img_saved_successfully".tr() +
               "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+          OpenFile.open(Uri.parse(result['filePath']).path);
         } else {
           ShowToasts.showToast(result['errorMessage']);
         }
