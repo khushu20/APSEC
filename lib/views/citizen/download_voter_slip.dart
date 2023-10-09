@@ -205,8 +205,8 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
                             padding: const EdgeInsets.all(5.0),
                             child: Image.asset(
                               ImageConstants.appIcon,
-                              height: 80,
-                              width: 80,
+                              height: logoSizeHeight,
+                              width: logoSizeWidth,
                             ),
                           ),
                         ),
