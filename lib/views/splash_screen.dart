@@ -2,8 +2,6 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:ap_sec/res/colors.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:ap_sec/res/text_constants.dart';
-import 'package:ap_sec/views/login_screen.dart';
-import 'package:ap_sec/views/otp_screen.dart';
 import 'package:ap_sec/views/sample_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,13 +40,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: ClipOval(
                       child: AnimatedSplashScreen(
                         splash: Image.asset(
-                          ImageConstants.appIcon,
+                          ImageConstants.apecLogo,
                           height: 160,
                           width: 160,
                         ),
                         nextScreen: SampleScreen(),
                         splashTransition: SplashTransition.rotationTransition,
-                        backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                  
+                        backgroundColor: AppColors.bgcolor,
                       ),
                     ),
                   )),

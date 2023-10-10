@@ -7,7 +7,7 @@ import 'package:ap_sec/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class OfficerSideMenu extends StatefulWidget {
-  const  OfficerSideMenu(
+  const OfficerSideMenu(
       {super.key, required this.username, required this.designation});
   final String username;
   final String designation;
@@ -22,26 +22,32 @@ class _OfficerSideMenuState extends State<OfficerSideMenu> {
     return SafeArea(
       child: Drawer(
         child: Column(
-          // padding: EdgeInsets.zero,
           children: [
             Expanded(
               flex: 2,
               child: Container(
                 width: double.infinity,
-                color: AppColors.appThemeColor,
+                decoration: BoxDecoration(
+                  gradient: AppColors.reusableGradient,
+                ),
                 child: Center(
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 30,),
+                        height: 30,
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+                        padding: const EdgeInsets.only(top: 15.0),
                         child: CircleAvatar(
-                          
+                          backgroundColor: Color.fromARGB(221, 200, 204, 232),
                           radius: 50,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Image.asset(ImageConstants.profile),
+                            child: Image.asset(
+                              ImageConstants.apecLogo,
+                              height: 80,
+                              width: 80,
+                            ),
                           ),
                         ),
                       ),
@@ -54,15 +60,6 @@ class _OfficerSideMenuState extends State<OfficerSideMenu> {
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w700),
                           )),
-                     /*  Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            widget.designation,
-                            style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500),
-                          )), */
                     ],
                   ),
                 ),
@@ -90,14 +87,11 @@ class _OfficerSideMenuState extends State<OfficerSideMenu> {
                     ),
                     onTap: () {
                       setState(() {
-                        Navigator.pushReplacementNamed(context, AppRoutes.officerdashboard);
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.officerdashboard);
                       });
-                      
                     },
                   ),
-                 
-                 
-                 
                   ListTile(
                     title: Container(
                       child: Row(

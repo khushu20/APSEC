@@ -68,10 +68,7 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
   Widget build(BuildContext context) {
     final downloadVoterSlipProvider =
         Provider.of<DownloadVoterSlipViewModel>(context);
-    double logoSizeHeight =
-        (MediaQuery.of(context).size.height / 3 * 2 / 30) * 15;
-    double logoSizeWidth =
-        (MediaQuery.of(context).size.width / 3 * 2 / 30) * 15;
+
     return WillPopScope(
       onWillPop: () async {
         if (_scaffoldKey.currentState?.isDrawerOpen ?? false) {

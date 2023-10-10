@@ -1,6 +1,7 @@
 import 'package:ap_sec/routes/app_routes.dart';
 import 'package:ap_sec/views/login_screen.dart';
 import 'package:ap_sec/views/officer/officer_dashboard.dart';
+import 'package:ap_sec/views/officer/pswise_entryscreen.dart';
 import 'package:ap_sec/views/privacy_policy.dart';
 import 'package:ap_sec/views/otp_screen.dart';
 import 'package:ap_sec/views/sample_screen.dart';
@@ -24,11 +25,10 @@ class AppPages {
       AppRoutes.otp: ((context) => OtpScreen()),
       AppRoutes.setMpin: ((context) => SetMpinScreen()),
       AppRoutes.validateMpin: ((context) => ValidateMpinScreen()),
-      AppRoutes.downloadVoterSlip: ((context) =>
-          DownloadVoterSlipView()),
-      AppRoutes.voterSlipDetails: ((context) =>
-          VoterSlipItemsList()),
+      AppRoutes.downloadVoterSlip: ((context) => DownloadVoterSlipView()),
+      AppRoutes.voterSlipDetails: ((context) => VoterSlipItemsList()),
       AppRoutes.appInfo: ((context) => AppInfo()),
+      AppRoutes.pswiseentry: ((context) => PSWiseEntryScreen()),
     };
   }
 }

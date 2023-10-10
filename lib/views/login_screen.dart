@@ -1,9 +1,11 @@
 import 'package:ap_sec/res/app_alerts/custom_error_alert.dart';
 import 'package:ap_sec/res/colors.dart';
+import 'package:ap_sec/res/sharedpreferences/share_pref_constants.dart';
 import 'package:ap_sec/res/text_constants.dart';
 import 'package:ap_sec/routes/app_routes.dart';
 import 'package:ap_sec/utils/internet_check.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -120,6 +122,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                               onPressed: () async {
                                                 if (userValidations(context)) if (await InternetCheck()
                                                     .hasInternetConnection()) {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  prefs.setString(
+                                                      SharedConstants.loginType,
+                                                      "citizen");
                                                   Navigator.pushReplacementNamed(
                                                       context,
                                                       AppRoutes
@@ -240,10 +248,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                               onPressed: () async {
                                                 if (userValidations(context)) if (await InternetCheck()
                                                     .hasInternetConnection()) {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  prefs.setString(
+                                                      SharedConstants.loginType,
+                                                      "officer");
                                                   Navigator.pushReplacementNamed(
                                                       context,
                                                       AppRoutes
-                                                          .officerdashboard);
+                                                          .otp);
                                                   /*  loginViewmodel.officerLoginMobileService(
                               context,
                               _userNameController.text.toString().trim(),
