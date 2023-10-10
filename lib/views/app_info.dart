@@ -69,7 +69,7 @@ class _AppInfoState extends State<AppInfo> {
                             "version".tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
                         SizedBox(
@@ -80,7 +80,7 @@ class _AppInfoState extends State<AppInfo> {
                             "VersionNumber",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
                       ],
@@ -96,7 +96,7 @@ class _AppInfoState extends State<AppInfo> {
                             "last_updated_date".tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
                         SizedBox(
@@ -107,7 +107,7 @@ class _AppInfoState extends State<AppInfo> {
                             "07-10-2023(Static)",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
                       ],

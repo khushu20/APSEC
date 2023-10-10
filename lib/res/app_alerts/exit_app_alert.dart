@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:ap_sec/res/colors.dart';
-import 'package:ap_sec/res/text_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import '../colors.dart';
 
 class ExitAppAlert extends StatelessWidget {
   const ExitAppAlert({super.key});
@@ -20,16 +19,16 @@ class ExitAppAlert extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              TextConstants.exitApp,
+              "exit".tr(),
               style: TextStyle(
-                  color: AppColors.black,
+                  color: AppColors.appbarcolor,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                TextConstants.are_sure_exit_app,
+                "are_you_sure_exit_app".tr(),
                 style: TextStyle(fontSize: 14.0),
               ),
             ),
@@ -43,10 +42,11 @@ class ExitAppAlert extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.green)),
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.green)),
                   onPressed: () => Navigator.pop(context),
-                  child: const Text(
-                    'NO',
+                  child: Text(
+                    'no'.tr(),
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -63,8 +63,8 @@ class ExitAppAlert extends StatelessWidget {
                     else if (Platform.isIOS)
                       {exit(0)}
                   },
-                  child: const Text(
-                    'YES',
+                  child: Text(
+                    'yes'.tr(),
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

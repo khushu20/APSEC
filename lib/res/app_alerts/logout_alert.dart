@@ -52,7 +52,7 @@ class LogOutAlert extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Are you sure you want to Logout?",
+                "are_you_sure_logout_app".tr(), 
                 style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
               ),

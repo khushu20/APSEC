@@ -17,19 +17,27 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       decoration: BoxDecoration(gradient: AppColors.reusableGradient),
       child: AppBar(
-          iconTheme: IconThemeData(color: AppColors.white),
-          title: Center(
-            child: Text(
-              title,
-              style: TextStyle(color: AppColors.white, fontSize: 18),
-            ),
+        iconTheme: IconThemeData(color: AppColors.white),
+        title: Center(
+          child: Text(
+            title,
+            style: TextStyle(color: AppColors.white, fontSize: 18),
           ),
-          backgroundColor: Colors.transparent, // Make the AppBar transparent
-          elevation: 0,
-          leading: null,
-          automaticallyImplyLeading:
-              automaticallyImplyLeading ?? true, // Remove the shadow
-          actions: actions),
+        ),
+        backgroundColor: Colors.transparent, // Make the AppBar transparent
+        elevation: 0,
+        leading: null,
+        automaticallyImplyLeading:
+            automaticallyImplyLeading ?? true, // Remove the shadow
+        actions: actions ??
+            <Widget>[
+              Icon(
+                Icons.more_vert,
+                color: Colors.transparent,
+              )
+            ],
+      ),
+      
     );
   }
 }

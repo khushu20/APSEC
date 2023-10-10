@@ -7,10 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import '../../routes/app_routes.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path/path.dart' as path;
 
 class VoterSlipItemsListViewModel with ChangeNotifier {
   bool isLoading = false;
@@ -33,44 +35,65 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
         setIsLoadingStatus(true);
         Uint8List? image = await screenshotController.capture();
         if (image != null) {
-          final result = await ImageGallerySaver.saveImage(image,
-              name: "${screenshotName.replaceAll(" ", "").toString()}");
+          Directory? externalDir;
+
+          if (Platform.isIOS) {
+            externalDir = await getApplicationDocumentsDirectory();
+            print('External Storage Directory ios: ${externalDir.path}');
+          } else {
+            externalDir = Directory('/storage/emulated/0/Pictures');
+            print('External Storage Directory: ${externalDir.path}');
+          }
+
+          int counter = 0;
+          String fileName = screenshotName.replaceAll(" ", "");
+          String baseFileName = screenshotName.replaceAll(" ", "");
+          print(
+              ":::: ${await File('${externalDir.path}/$fileName.jpg').exists()}");
+          while (await File('${externalDir.path}/$fileName.jpg').exists()) {
+            counter++;
+            String extension = path.extension(baseFileName);
+            String fileNameWithoutExtension =
+                path.basenameWithoutExtension(baseFileName);
+            fileName = '$fileNameWithoutExtension($counter)$extension';
+          }
+          final result =
+              await ImageGallerySaver.saveImage(image, name: fileName);
           print(result);
           if (result['isSuccess']) {
             String savedFilePath = result['filePath'];
-            File savedFile = File(savedFilePath);
-            String directory = savedFile.parent.path;
-            String originalFilePath =
-                '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
-
             showCupertinoDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CupertinoAlertDialog(
-                    title: Row(
-                      children: [
-                        ImageIcon(
-                          AssetImage(ImageConstants
-                              .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                  return WillPopScope(
+                    onWillPop: () {
+                      return Future.value(false);
+                    },
+                    child: CupertinoAlertDialog(
+                      title: Row(
+                        children: [
+                          ImageIcon(
+                            AssetImage(ImageConstants.appIcon),
+                          ),
+                          SizedBox(width: 10),
+                          Text("app_name".tr()),
+                        ],
+                      ),
+                      content: Text("img_saved_successfully".tr() +
+                          " to\n" +
+                          "${savedFilePath}"),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          onPressed: () {
+                            setIsLoadingStatus(false);
+                            Navigator.of(context).pop();
+                            OpenFile.open(Uri.parse(savedFilePath).path);
+                          },
+                          child: Text('OK'),
                         ),
-                        SizedBox(width: 10),
-                        Text("app_name".tr()),
                       ],
                     ),
-                    content: Text("img_saved_successfully".tr() +
-                        " to\n" +
-                        "${originalFilePath}"),
-                    actions: <Widget>[
-                      CupertinoDialogAction(
-                        isDefaultAction: true,
-                        onPressed: () {
-                          setIsLoadingStatus(false);
-                          Navigator.of(context).pop(); // Close the dialog
-                          OpenFile.open(Uri.parse(originalFilePath).path);
-                        },
-                        child: Text('OK'),
-                      ),
-                    ],
                   );
                 });
           } else {
@@ -84,45 +107,65 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
           setIsLoadingStatus(true);
           Uint8List? image = await screenshotController.capture();
           if (image != null) {
-            final result = await ImageGallerySaver.saveImage(image,
-                name: screenshotName.replaceAll(" ", ""));
+            Directory? externalDir;
+
+            if (Platform.isIOS) {
+              externalDir = await getApplicationDocumentsDirectory();
+              print('External Storage Directory ios: ${externalDir.path}');
+            } else {
+              externalDir = Directory('/storage/emulated/0/Pictures');
+              print('External Storage Directory: ${externalDir.path}');
+            }
+
+            int counter = 0;
+            String fileName = screenshotName.replaceAll(" ", "");
+            String baseFileName = screenshotName.replaceAll(" ", "");
+            print(
+                ":::: ${await File('${externalDir.path}/$fileName.jpg').exists()}");
+            while (await File('${externalDir.path}/$fileName.jpg').exists()) {
+              counter++;
+              String extension = path.extension(baseFileName);
+              String fileNameWithoutExtension =
+                  path.basenameWithoutExtension(baseFileName);
+              fileName = '$fileNameWithoutExtension($counter)$extension';
+            }
+            final result =
+                await ImageGallerySaver.saveImage(image, name: fileName);
             print(result);
             if (result['isSuccess']) {
               String savedFilePath = result['filePath'];
-              File savedFile = File(savedFilePath);
-              String directory = savedFile.parent.path;
-              String originalFilePath =
-                  '$directory/${screenshotName.replaceAll(" ", "").toString()}.jpg';
-              ShowToasts.showToast(
-                  "img_saved_successfully".tr() + "${originalFilePath}");
               showCupertinoDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: Row(
-                        children: [
-                          ImageIcon(
-                            AssetImage(ImageConstants
-                                .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                    return WillPopScope(
+                      onWillPop: () {
+                        return Future.value(false);
+                      },
+                      child: CupertinoAlertDialog(
+                        title: Row(
+                          children: [
+                            ImageIcon(
+                              AssetImage(ImageConstants.appIcon),
+                            ),
+                            SizedBox(width: 10),
+                            Text("app_name".tr()),
+                          ],
+                        ),
+                        content: Text("img_saved_successfully".tr() +
+                            " to\n" +
+                            "${savedFilePath}"),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            isDefaultAction: true,
+                            onPressed: () {
+                              setIsLoadingStatus(false);
+                              Navigator.of(context).pop();
+                              OpenFile.open(Uri.parse(savedFilePath).path);
+                            },
+                            child: Text('OK'),
                           ),
-                          SizedBox(width: 10),
-                          Text("app_name".tr()),
                         ],
                       ),
-                      content: Text("img_saved_successfully".tr() +
-                          " to\n" +
-                          "${originalFilePath}"),
-                      actions: <Widget>[
-                        CupertinoDialogAction(
-                          isDefaultAction: true,
-                          onPressed: () {
-                            setIsLoadingStatus(false);
-                            Navigator.of(context).pop(); // Close the dialog
-                            OpenFile.open(Uri.parse(originalFilePath).path);
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
                     );
                   });
             } else {
@@ -164,42 +207,68 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
     } else if (Platform.isIOS) {
       PermissionStatus status = await Permission.photos.request();
       if (status.isGranted) {
+        setIsLoadingStatus(true);
         Uint8List? image = await screenshotController.capture();
         if (image != null) {
-          final result = await ImageGallerySaver.saveImage(image,
-              name: screenshotName.replaceAll(" ", ""));
+          Directory? externalDir;
+
+          if (Platform.isIOS) {
+            externalDir = await getApplicationDocumentsDirectory();
+            print('External Storage Directory ios: ${externalDir.path}');
+          } else {
+            externalDir = Directory('/storage/emulated/0/Pictures');
+            print('External Storage Directory: ${externalDir.path}');
+          }
+
+          int counter = 0;
+          String fileName = screenshotName.replaceAll(" ", "");
+          String baseFileName = screenshotName.replaceAll(" ", "");
+          print(
+              ":::: ${await File('${externalDir.path}/$fileName.jpg').exists()}");
+          while (await File('${externalDir.path}/$fileName.jpg').exists()) {
+            counter++;
+            String extension = path.extension(baseFileName);
+            String fileNameWithoutExtension =
+                path.basenameWithoutExtension(baseFileName);
+            fileName = '$fileNameWithoutExtension($counter)$extension';
+          }
+          final result =
+              await ImageGallerySaver.saveImage(image, name: fileName);
           print(result);
           if (result['isSuccess']) {
-            ShowToasts.showToast("img_saved_successfully".tr() +
-                "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+            String savedFilePath = result['filePath'];
             showCupertinoDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CupertinoAlertDialog(
-                    title: Row(
-                      children: [
-                        ImageIcon(
-                          AssetImage(ImageConstants
-                              .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                  return WillPopScope(
+                    onWillPop: () {
+                      return Future.value(false);
+                    },
+                    child: CupertinoAlertDialog(
+                      title: Row(
+                        children: [
+                          ImageIcon(
+                            AssetImage(ImageConstants.appIcon),
+                          ),
+                          SizedBox(width: 10),
+                          Text("app_name".tr()),
+                        ],
+                      ),
+                      content: Text("img_saved_successfully".tr() +
+                          " to\n" +
+                          "${savedFilePath}"),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          onPressed: () {
+                            setIsLoadingStatus(false);
+                            Navigator.of(context).pop();
+                            OpenFile.open(Uri.parse(savedFilePath).path);
+                          },
+                          child: Text('OK'),
                         ),
-                        SizedBox(width: 10),
-                        Text("app_name".tr()),
                       ],
                     ),
-                    content: Text("img_saved_successfully".tr() +
-                        " to\n" +
-                        "${result['filePath']}"),
-                    actions: <Widget>[
-                      CupertinoDialogAction(
-                        isDefaultAction: true,
-                        onPressed: () {
-                          setIsLoadingStatus(false);
-                          Navigator.of(context).pop(); // Close the dialog
-                          OpenFile.open(Uri.parse(result['filePath']).path);
-                        },
-                        child: Text('OK'),
-                      ),
-                    ],
                   );
                 });
           } else {
@@ -210,42 +279,68 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
       } else {
         PermissionStatus status = await Permission.photos.request();
         if (status.isGranted) {
+          setIsLoadingStatus(true);
           Uint8List? image = await screenshotController.capture();
           if (image != null) {
-            final result = await ImageGallerySaver.saveImage(image,
-                name: screenshotName.replaceAll(" ", ""));
+            Directory? externalDir;
+
+            if (Platform.isIOS) {
+              externalDir = await getApplicationDocumentsDirectory();
+              print('External Storage Directory ios: ${externalDir.path}');
+            } else {
+              externalDir = Directory('/storage/emulated/0/Pictures');
+              print('External Storage Directory: ${externalDir.path}');
+            }
+
+            int counter = 0;
+            String fileName = screenshotName.replaceAll(" ", "");
+            String baseFileName = screenshotName.replaceAll(" ", "");
+            print(
+                ":::: ${await File('${externalDir.path}/$fileName.jpg').exists()}");
+            while (await File('${externalDir.path}/$fileName.jpg').exists()) {
+              counter++;
+              String extension = path.extension(baseFileName);
+              String fileNameWithoutExtension =
+                  path.basenameWithoutExtension(baseFileName);
+              fileName = '$fileNameWithoutExtension($counter)$extension';
+            }
+            final result =
+                await ImageGallerySaver.saveImage(image, name: fileName);
             print(result);
             if (result['isSuccess']) {
-              ShowToasts.showToast("img_saved_successfully".tr() +
-                  "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+              String savedFilePath = result['filePath'];
               showCupertinoDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: Row(
-                        children: [
-                          ImageIcon(
-                            AssetImage(ImageConstants
-                                .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                    return WillPopScope(
+                      onWillPop: () {
+                        return Future.value(false);
+                      },
+                      child: CupertinoAlertDialog(
+                        title: Row(
+                          children: [
+                            ImageIcon(
+                              AssetImage(ImageConstants.appIcon),
+                            ),
+                            SizedBox(width: 10),
+                            Text("app_name".tr()),
+                          ],
+                        ),
+                        content: Text("img_saved_successfully".tr() +
+                            " to\n" +
+                            "${savedFilePath}"),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            isDefaultAction: true,
+                            onPressed: () {
+                              setIsLoadingStatus(false);
+                              Navigator.of(context).pop();
+                              OpenFile.open(Uri.parse(savedFilePath).path);
+                            },
+                            child: Text('OK'),
                           ),
-                          SizedBox(width: 10),
-                          Text("app_name".tr()),
                         ],
                       ),
-                      content: Text("img_saved_successfully".tr() +
-                          " to\n" +
-                          "${result['filePath']}"),
-                      actions: <Widget>[
-                        CupertinoDialogAction(
-                          isDefaultAction: true,
-                          onPressed: () {
-                            setIsLoadingStatus(false);
-                            Navigator.of(context).pop(); // Close the dialog
-                            OpenFile.open(Uri.parse(result['filePath']).path);
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
                     );
                   });
             } else {
@@ -295,40 +390,65 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
     } else {
       Uint8List? image = await screenshotController.capture();
       if (image != null) {
+        Directory? externalDir;
+
+        if (Platform.isIOS) {
+          externalDir = await getApplicationDocumentsDirectory();
+          print('External Storage Directory ios: ${externalDir.path}');
+        } else {
+          externalDir = Directory('/storage/emulated/0/Pictures');
+          print('External Storage Directory: ${externalDir.path}');
+        }
+
+        int counter = 0;
+        String fileName = screenshotName.replaceAll(" ", "");
+        String baseFileName = screenshotName.replaceAll(" ", "");
+        print(
+            ":::: ${await File('${externalDir.path}/$fileName.jpg').exists()}");
+        while (await File('${externalDir.path}/$fileName.jpg').exists()) {
+          counter++;
+          String extension = path.extension(baseFileName);
+          String fileNameWithoutExtension =
+              path.basenameWithoutExtension(baseFileName);
+          fileName = '$fileNameWithoutExtension($counter)$extension';
+        }
         final result =
             await ImageGallerySaver.saveImage(image, name: screenshotName);
         print(result);
         if (result['isSuccess']) {
-          ShowToasts.showToast("img_saved_successfully".tr() +
-              "${screenshotName.replaceAll(" ", "").toString()}.jpg");
+          String savedFilePath = result['filePath'];
           showCupertinoDialog(
               context: context,
               builder: (BuildContext context) {
-                return CupertinoAlertDialog(
-                  title: Row(
-                    children: [
-                      ImageIcon(
-                        AssetImage(ImageConstants
-                            .appIcon), // Assuming you have an ImageConstants class with appIcon defined
+                return WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: CupertinoAlertDialog(
+                    title: Row(
+                      children: [
+                        ImageIcon(
+                          AssetImage(ImageConstants.appIcon),
+                        ),
+                        SizedBox(width: 10),
+                        Text("app_name".tr()),
+                      ],
+                    ),
+                    content: Text("img_saved_successfully".tr() +
+                        " to\n" +
+                        "${savedFilePath}"),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () {
+                          setIsLoadingStatus(false);
+                          Navigator.of(context).pop();
+                          OpenFile.open(Uri.parse(savedFilePath).path);
+                        },
+                        child: Text('OK'),
                       ),
-                      SizedBox(width: 10),
-                      Text("app_name".tr()),
                     ],
                   ),
-                  content: Text("img_saved_successfully".tr() +
-                      " to\n" +
-                      "${result['filePath']}"),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      isDefaultAction: true,
-                      onPressed: () {
-                        setIsLoadingStatus(false);
-                        Navigator.of(context).pop(); // Close the dialog
-                        OpenFile.open(Uri.parse(result['filePath']).path);
-                      },
-                      child: Text('OK'),
-                    ),
-                  ],
                 );
               });
         } else {
@@ -338,5 +458,4 @@ class VoterSlipItemsListViewModel with ChangeNotifier {
       }
     }
   }
-  //version update service call
 }

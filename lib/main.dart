@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'routes/app_pages.dart';
+import 'view_model/privacy_policy_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => DownloadVoterSlipViewModel()),
         ChangeNotifierProvider(create: (_) => VoterSlipItemsListViewModel()),
+        ChangeNotifierProvider(create: (_) => PrivacyPolicyViewModel()),
       ],
       child: MaterialApp(
         locale: context.locale,
