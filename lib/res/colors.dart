@@ -16,7 +16,7 @@ class AppColors {
   //static const Color appbarcolor = const Color(0xFF51696B);
   static const Color ash = const Color(0xFF51696B);
     static const Color appbarcolor = const Color(0xFF00BCAA);
-  static const Color bgcolor = const Color(0xFF0c8069);
+  static const Color bgcolor = Color.fromARGB(221, 200, 204, 232);
   static const Color buttoncolor = const Color(0xFF4358AC);
  // static const Color btngreen = const Color(0xFF629b58);
  static const Color btngreen = const Color(0xFF51696B);

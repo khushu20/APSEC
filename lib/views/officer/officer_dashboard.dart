@@ -1,8 +1,10 @@
 import 'package:ap_sec/res/app_alerts/exit_app_alert.dart';
 import 'package:ap_sec/res/app_alerts/logout_alert.dart';
 import 'package:ap_sec/res/colors.dart';
+import 'package:ap_sec/res/components/custom_appbar.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:ap_sec/res/text_constants.dart';
+import 'package:ap_sec/routes/app_routes.dart';
 import 'package:ap_sec/views/officer/officer_sidemenu.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class OfficerDashboard extends StatefulWidget {
 class _OfficerDashboardState extends State<OfficerDashboard> {
   @override
   Widget build(BuildContext context) {
-  return WillPopScope(
+    return WillPopScope(
       onWillPop: () {
         showDialog(
           barrierDismissible: false,
@@ -30,67 +32,160 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
       child: Stack(
         children: [
           Scaffold(
-            appBar:AppBar(
-               iconTheme: IconThemeData(color: AppColors.white),
-              title: Center(child: Text(TextConstants.dashboard,style: TextStyle(color: AppColors.white),)),
-              backgroundColor: AppColors.appThemeColor,
+            appBar: GradientAppBar(
+              title: TextConstants.dashboard,
               actions: [
                 IconButton(
-                  onPressed: () {
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return LogOutAlert();
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.logout,color: AppColors.white,),
-                )
+                    icon: Icon(Icons.logout),
+                    onPressed: () {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return LogOutAlert();
+                        },
+                      );
+                    })
               ],
             ),
             drawer: OfficerSideMenu(username: "Khushboo", designation: ""),
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  /*   Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width,
-                      color: AppColors.white,
-                      child: Center(
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          ImageConstants.profile,
+                          height: 100,
+                          width: 100,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            
-                        TextConstants.application_status,
-                        style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: 18,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w500),
-                      ))), */
-                  
-                    
-                 
+                            "9828738833",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Text(
+                              "District",
+                              style: TextStyle(fontSize: 16),
+                            )),
+                        Expanded(flex: 2, child: Text(""))
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text("Municipality",
+                              style: TextStyle(fontSize: 16)),
+                        ),
+                        Expanded(flex: 2, child: Text(""))
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child:
+                                Text("Ward", style: TextStyle(fontSize: 16))),
+                        Expanded(flex: 2, child: Text(""))
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Text("Polling Station",
+                                style: TextStyle(fontSize: 16))),
+                        Expanded(flex: 2, child: Text(""))
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(gradient: AppColors.reusableGradient), // Customize the color as needed
+                      child: ListTile(
+                        leading: Image.asset(ImageConstants.polling,height: 30,width: 30,), // Replace with your icon
+                        title: Text(
+                          "PS wise Entry",
+                          style: TextStyle(
+                            fontFamily: 'muli_bold',
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        onTap: () {
+                         Navigator.pushReplacementNamed(context, AppRoutes.pswiseentry);
+                        },
+                      ),
+                    ),
+                  ),
+                   Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(gradient: AppColors.reusableGradient), // Customize the color as needed
+                      child: ListTile(
+                        leading:Image.asset(ImageConstants.status,height: 30,width: 30), // Replace with your icon
+                        title: Text(
+                          "DE-Link PS",
+                          style: TextStyle(
+                            fontFamily: 'muli_bold',
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        onTap: () {
+                          // Handle card tap event
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            bottomNavigationBar: Container(
-              
-              //color
-color: AppColors.appThemeColor,
-              height: MediaQuery.of(context).size.height * 0.06,
-              child: Image.asset(
-                
-                ImageConstants.footerwhite,
-                width: double.infinity,
+            bottomNavigationBar: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: AppColors.sampleGradient,
+                ),
+                child: Image.asset(
+                  ImageConstants.footerwhite,
+                  width: double.infinity,
+                  height: 40,
+                ),
               ),
             ),
           ),
-         
         ],
       ),
     );
   }
-
-
-
 }

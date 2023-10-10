@@ -40,13 +40,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: ClipOval(
                       child: AnimatedSplashScreen(
                         splash: Image.asset(
-                          ImageConstants.appIcon,
+                          ImageConstants.apecLogo,
                           height: 160,
                           width: 160,
                         ),
                         nextScreen: SampleScreen(),
                         splashTransition: SplashTransition.rotationTransition,
-                        backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                  
+                        backgroundColor: AppColors.bgcolor,
                       ),
                     ),
                   )),

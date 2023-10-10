@@ -11,4 +11,7 @@ class ImageConstants {
   static const apecLogo = "assets/apsec_logo.png";
   static const crossIcon = "assets/crossIcon.png";
   static const downloadIcon = "assets/download_arrow.png";
+  static const polling = "assets/polling.png";
+  static const status = "assets/status.png";
+
 }

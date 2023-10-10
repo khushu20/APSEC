@@ -5,9 +5,13 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool? automaticallyImplyLeading;
   final List<Widget>? actions;
+  final Widget? IconButton;
 
   GradientAppBar(
-      {required this.title, this.automaticallyImplyLeading, this.actions});
+      {required this.title,
+      this.automaticallyImplyLeading,
+      this.actions,
+      this.IconButton});
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -26,18 +30,16 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         backgroundColor: Colors.transparent, // Make the AppBar transparent
         elevation: 0,
-        leading: null,
-        automaticallyImplyLeading:
-            automaticallyImplyLeading ?? true, // Remove the shadow
+        leading: IconButton,
+        // Remove the shadow
         actions: actions ??
             <Widget>[
               Icon(
                 Icons.more_vert,
                 color: Colors.transparent,
-              )
+              ),
             ],
       ),
-      
     );
   }
 }

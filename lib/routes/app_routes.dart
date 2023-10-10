@@ -12,4 +12,5 @@ class AppRoutes {
   static const downloadVoterSlip = "/downloadVoterSlip";
   static const voterSlipDetails = "/voterSlip";
   static const appInfo = "/appInfo";
+  static const pswiseentry = "/pswiseentry";
 }
