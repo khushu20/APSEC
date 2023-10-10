@@ -8,6 +8,12 @@ import '../../routes/app_routes.dart';
 class DownloadVoterSlipViewModel with ChangeNotifier {
   final _downloadVoterSlipRepository = VoterSlipRepository();
   VoterResponse voterSlipResponse = VoterResponse();
+  bool isLoading = false;
+  get getIsLoadingStatus => isLoading;
+  setIsLoadingStatus(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
 
   getVoterSlipDetails(String selectedDistrictId, String epicNo,
       BuildContext context, String languageCode) async {
@@ -16,8 +22,9 @@ class DownloadVoterSlipViewModel with ChangeNotifier {
       "epic": epicNo,
       "source": "Mobile",
     };
-    final response = await _downloadVoterSlipRepository
-        .getVoterSlipTelugu(context, requestTelugu);
+    final response = await _downloadVoterSlipRepository.getVoterSlipTelugu(
+        context, requestTelugu);
+    setIsLoadingStatus(false);
     if (response != null) {
       if (response.statusCode == "" || response.statusCode == null) {
         showCupertinoDialog(

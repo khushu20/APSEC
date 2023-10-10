@@ -1,3 +1,4 @@
+import 'package:ap_sec/res/app_alerts/logout_alert.dart';
 import 'package:ap_sec/res/colors.dart';
 import 'package:ap_sec/res/image_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,25 +31,25 @@ class _SideMenuCitizenState extends State<SideMenuCitizen> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    gradient:  AppColors.reusableGradient,
+                    gradient: AppColors.reusableGradient,
                   ),
                   child: Center(
                     child: Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
-                          child:  CircleAvatar(
-                  backgroundColor: Color.fromARGB(221, 200, 204, 232),
-                  radius: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Image.asset(
-                      ImageConstants.appIcon,
-                      height: 80,
-                      width: 80,
-                    ),
-                  ),
-                ),
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                            radius: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Image.asset(
+                                ImageConstants.appIcon,
+                                height: 80,
+                                width: 80,
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -109,6 +110,32 @@ class _SideMenuCitizenState extends State<SideMenuCitizen> {
                       ),
                       onTap: () {
                         Navigator.pushNamed(context, AppRoutes.appInfo);
+                      },
+                    ),
+                    ListTile(
+                      title: Container(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              ImageConstants.logout,
+                              height: 20,
+                              width: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("logout".tr()),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return LogOutAlert();
+                          },
+                        );
                       },
                     ),
                     ListTile(
