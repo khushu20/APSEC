@@ -26,7 +26,7 @@ class _PSWiseEntryScreenState extends State<PSWiseEntryScreen> {
     return SafeArea(
       child: WillPopScope(
           onWillPop: () {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, AppRoutes.officerdashboard);
             return Future.value(false);
           },
         child: Scaffold(
