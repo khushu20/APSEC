@@ -220,13 +220,6 @@ class _ValidateMpinScreenState extends State<ValidateMpinScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    enterMpin.dispose();
-    enterMpin.dispose();
-    super.dispose();
-  }
-
   bool userValidations(BuildContext context) {
     if (enterMpin.text.isEmpty) {
       ValidationIoSAlert().showAlert(context, "Please enter Mpin");

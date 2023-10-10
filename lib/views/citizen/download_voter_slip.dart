@@ -201,16 +201,24 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height / 50,
                             ),
-                            CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(221, 200, 204, 232),
-                              radius: 50,
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Image.asset(
-                                  ImageConstants.appIcon,
-                                  height: logoSizeHeight,
-                                  width: logoSizeWidth,
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.appThemeColor,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor: AppColors.white,
+                                radius: 50,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Image.asset(
+                                    ImageConstants.apecLogo,
+                                    height: logoSizeHeight,
+                                    width: logoSizeWidth,
+                                  ),
                                 ),
                               ),
                             ),
@@ -221,7 +229,7 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
                               height: 30,
                               child: Marquee(
                                 text: 'WELCOME TO DASHBOARD',
-                                style: TextStyle(fontSize: 20.0),
+                                style: TextStyle(fontSize: 16.0),
                                 scrollAxis: Axis.horizontal,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 blankSpace: 20.0,
@@ -238,212 +246,237 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Card(
-                                color: Color.fromARGB(221, 200, 204, 232),
+                                elevation: 5,
+                                color: AppColors.appThemeColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: SizedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0, vertical: 10.0),
-                                    child: Form(
-                                      key: _formKey,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                40,
-                                          ),
-                                          Center(
-                                            child: Text(
-                                              "dwnld_voter_slip".tr(),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                40,
-                                          ),
-                                          Container(
-                                            height: 48.0,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                                width: 1.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      color: AppColors.white,
+                                    ),
+                                    child: SizedBox(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 10.0),
+                                        child: Form(
+                                          key: _formKey,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    40,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(4.0),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child:
-                                                      DropdownButtonHideUnderline(
-                                                    child: Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 8.0),
-                                                      child: DropdownButton<
-                                                          String>(
-                                                        isExpanded: true,
-                                                        itemHeight:
-                                                            kMinInteractiveDimension,
-                                                        value: selectedDistrict,
-                                                        onChanged:
-                                                            (String? newValue) {
-                                                          setState(() {
-                                                            selectedDistrict =
-                                                                newValue ??
-                                                                    'select_district'
-                                                                        .tr();
-                                                            selectedId = AppStrings
-                                                                    .DistrictsIDs[
-                                                                telanganaDistricts
-                                                                    .indexOf(
+                                              Center(
+                                                child: Text(
+                                                  "dwnld_voter_slip".tr(),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    40,
+                                              ),
+                                              Container(
+                                                height: 48.0,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          DropdownButtonHideUnderline(
+                                                        child: Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      8.0),
+                                                          child: DropdownButton<
+                                                              String>(
+                                                            isExpanded: true,
+                                                            itemHeight:
+                                                                kMinInteractiveDimension,
+                                                            value:
+                                                                selectedDistrict,
+                                                            onChanged: (String?
+                                                                newValue) {
+                                                              setState(() {
+                                                                selectedDistrict =
+                                                                    newValue ??
+                                                                        'select_district'
+                                                                            .tr();
+                                                                selectedId = AppStrings
+                                                                        .DistrictsIDs[
+                                                                    telanganaDistricts.indexOf(
                                                                         selectedDistrict ??
                                                                             '00')];
-                                                          });
-                                                        },
-                                                        items:
-                                                            telanganaDistricts
+                                                              });
+                                                            },
+                                                            items: telanganaDistricts
                                                                 .map((String
                                                                     district) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: district,
-                                                            child: Text(
-                                                                district.tr(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left),
-                                                          );
-                                                        }).toList(),
+                                                              return DropdownMenuItem<
+                                                                  String>(
+                                                                value: district,
+                                                                child: Text(
+                                                                    district
+                                                                        .tr(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    40,
+                                              ),
+                                              Container(
+                                                height: 48.0,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: TextFormField(
+                                                      textInputAction:
+                                                          TextInputAction.done,
+                                                      inputFormatters: [],
+                                                      controller:
+                                                          epicNoController,
+                                                      style: const TextStyle(
+                                                          color: Colors.black),
+                                                      maxLength: 50,
+                                                      maxLines: 1,
+                                                      cursorColor:
+                                                          Color.fromARGB(255,
+                                                              33, 184, 166),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        counterText: '',
+                                                        hintText:
+                                                            "epic_no".tr(),
+                                                        border:
+                                                            InputBorder.none,
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                40,
-                                          ),
-                                          Container(
-                                            height: 48.0,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                                width: 1.0,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(4.0),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: TextFormField(
-                                                  textInputAction:
-                                                      TextInputAction.done,
-                                                  inputFormatters: [],
-                                                  controller: epicNoController,
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
-                                                  maxLength: 50,
-                                                  maxLines: 1,
-                                                  cursorColor: Color.fromARGB(
-                                                      255, 33, 184, 166),
-                                                  decoration: InputDecoration(
-                                                    counterText: '',
-                                                    hintText: "epic_no".tr(),
-                                                    border: InputBorder.none,
-                                                  ),
-                                                ),
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    40,
                                               ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                40,
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () async {
-                                              FocusScope.of(context).unfocus();
-                                              bool isConnected =
-                                                  await InternetCheck()
-                                                      .hasInternetConnection();
-                                              if (selectedDistrict ==
-                                                      'select_district'.tr() ||
-                                                  selectedDistrict ==
-                                                      "select".tr() ||
-                                                  selectedId == "00") {
-                                                ShowToasts.showToast(
-                                                    "please_select_district"
-                                                        .tr());
-                                              } else if (epicNoController
-                                                  .text.isEmpty) {
-                                                ShowToasts.showToast(
-                                                    "please_select_epincNo"
-                                                        .tr());
-                                              } else {
-                                                if (isConnected) {
-                                                  downloadVoterSlipProvider
-                                                      .setIsLoadingStatus(true);
-                                                  print(
-                                                      "Spinner val1 ${selectedDistrict}");
-                                                  print(
-                                                      "Spinner districtID ${selectedId}");
-                                                  await downloadVoterSlipProvider
-                                                      .getVoterSlipDetails(
-                                                          selectedId,
-                                                          epicNoController.text
-                                                              .trim(),
-                                                          context,
-                                                          context.locale
-                                                              .languageCode);
-                                                } else {
-                                                  showDialog(
-                                                      barrierDismissible: false,
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return InternetCheckAlert();
-                                                      });
-                                                }
-                                              }
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                              ElevatedButton(
+                                                onPressed: () async {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                  bool isConnected =
+                                                      await InternetCheck()
+                                                          .hasInternetConnection();
+                                                  if (selectedDistrict ==
+                                                          'select_district'
+                                                              .tr() ||
+                                                      selectedDistrict ==
+                                                          "select".tr() ||
+                                                      selectedId == "00") {
+                                                    ShowToasts.showToast(
+                                                        "please_select_district"
+                                                            .tr());
+                                                  } else if (epicNoController
+                                                      .text.isEmpty) {
+                                                    ShowToasts.showToast(
+                                                        "please_select_epincNo"
+                                                            .tr());
+                                                  } else {
+                                                    if (isConnected) {
+                                                      downloadVoterSlipProvider
+                                                          .setIsLoadingStatus(
+                                                              true);
+                                                      print(
+                                                          "Spinner val1 ${selectedDistrict}");
+                                                      print(
+                                                          "Spinner districtID ${selectedId}");
+                                                      await downloadVoterSlipProvider
+                                                          .getVoterSlipDetails(
+                                                              selectedId,
+                                                              epicNoController
+                                                                  .text
+                                                                  .trim(),
+                                                              context,
+                                                              context.locale
+                                                                  .languageCode);
+                                                    } else {
+                                                      showDialog(
+                                                          barrierDismissible:
+                                                              false,
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return InternetCheckAlert();
+                                                          });
+                                                    }
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                       horizontal: 20,
                                                       vertical: 10),
-                                              child: Text(
-                                                "search".tr(),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
+                                                  child: Text(
+                                                    "search".tr(),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.buttoncolor,
-                                              textStyle:
-                                                  TextStyle(fontSize: 16),
-                                            ),
-                                          )
-                                        ],
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      AppColors.buttoncolor,
+                                                  textStyle:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -475,6 +508,12 @@ class _DownloadVoterSlipViewState extends State<DownloadVoterSlipView> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    epicNoController.dispose();
+    super.dispose();
   }
 
   @override

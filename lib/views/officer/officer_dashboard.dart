@@ -48,7 +48,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                     })
               ],
             ),
-            drawer: OfficerSideMenu(username: "Khushboo", designation: ""),
+            drawer: OfficerSideMenu(username: TextConstants.appName, designation: ""),
             body: SingleChildScrollView(
               child: Column(
                 children: [

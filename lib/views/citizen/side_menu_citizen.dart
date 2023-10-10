@@ -39,12 +39,12 @@ class _SideMenuCitizenState extends State<SideMenuCitizen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
                           child: CircleAvatar(
-                            backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                            backgroundColor: AppColors.white,
                             radius: 50,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Image.asset(
-                                ImageConstants.appIcon,
+                                ImageConstants.apecLogo,
                                 height: 80,
                                 width: 80,
                               ),

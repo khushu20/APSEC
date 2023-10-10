@@ -39,7 +39,7 @@ class _OfficerSideMenuState extends State<OfficerSideMenu> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15.0),
                         child: CircleAvatar(
-                          backgroundColor: Color.fromARGB(221, 200, 204, 232),
+                          backgroundColor: AppColors.white,
                           radius: 50,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),

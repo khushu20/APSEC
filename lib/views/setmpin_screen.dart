@@ -24,9 +24,8 @@ class _SetMpinScreenState extends State<SetMpinScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        Navigator.pushReplacementNamed(
-              context, AppRoutes.otp);
-          return Future.value(false);
+        Navigator.pushReplacementNamed(context, AppRoutes.otp);
+        return Future.value(false);
       },
       child: Scaffold(
         appBar: GradientAppBar(
@@ -149,8 +148,8 @@ class _SetMpinScreenState extends State<SetMpinScreen> {
                                 vertical: 15, horizontal: 50),
                             child: Text(
                               "Proceed",
-                              style:
-                                  TextStyle(fontSize: 18, color: AppColors.white),
+                              style: TextStyle(
+                                  fontSize: 18, color: AppColors.white),
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -195,7 +194,7 @@ class _SetMpinScreenState extends State<SetMpinScreen> {
             ],
           ),
         ),
-         bottomNavigationBar: SafeArea(
+        bottomNavigationBar: SafeArea(
           child: Container(
             decoration: BoxDecoration(
               gradient: AppColors.sampleGradient,
@@ -235,12 +234,5 @@ class _SetMpinScreenState extends State<SetMpinScreen> {
       return false;
     }
     return true;
-  }
-
-  @override
-  void dispose() {
-    enterMpin.dispose();
-    re_enterMpin.dispose();
-    super.dispose();
   }
 }

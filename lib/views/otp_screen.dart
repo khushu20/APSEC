@@ -85,12 +85,12 @@ class _OtpScreenState extends State<OtpScreen> {
                           )),
                         ),
                         PinCodeFields(
-                          length: 4,
+                          length: 6,
                           fieldBorderStyle: FieldBorderStyle.square,
                           controller: otp,
-                          responsive: false,
+                          responsive: true,
                           fieldHeight: 45.0,
-                          fieldWidth: 45.0,
+                          fieldWidth: 35.0,
                           borderWidth: 1.0,
                           obscureCharacter: '⬤',
                           obscureText: true,
@@ -200,18 +200,12 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    otp.dispose();
-    super.dispose();
-  }
-
   bool userValidations(BuildContext context) {
     if (otp.text.isEmpty) {
       ValidationIoSAlert().showAlert(context, "Please enter OTP");
       return false;
-    } else if (otp.text.length < 4) {
-      ValidationIoSAlert().showAlert(context, "Please enter 4 digit OTP");
+    } else if (otp.text.length < 6) {
+      ValidationIoSAlert().showAlert(context, "Please enter 6 digit OTP");
       return false;
     }
 
